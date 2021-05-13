@@ -57,8 +57,5 @@ namespace ApiTests
         [JsonProperty("last_name")]
         public string LastName { get; set; }
 
-
     }
-
-
 }

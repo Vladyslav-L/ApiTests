@@ -5,27 +5,6 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiTests", "ApiTests\ApiTests.csproj", "{E628D4E5-4528-4E31-9A07-C0C8B1D4C938}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiRequests", "ApiRequests", "{C657FE98-D53D-47C1-8DCB-3F618CC9AD22}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{1D22ABDC-659A-4171-A2F9-8DB93D0F04D2}"
-	ProjectSection(SolutionItems) = preProject
-		ApiTests\AuthReguests.cs = ApiTests\AuthReguests.cs
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{0F67F485-9C23-4A47-9799-4A6DE7D37524}"
-	ProjectSection(SolutionItems) = preProject
-		ApiTests\ClientReguests.cs = ApiTests\ClientReguests.cs
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{280D3AEA-BB4C-48FB-86AF-9043504090E2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{CB4BDF74-8608-4903-B718-082CB9A73881}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{521716FC-2C96-4B4C-86A2-FA7028125976}"
-	ProjectSection(SolutionItems) = preProject
-		ApiTests\ChangeEmailResponse.cs = ApiTests\ChangeEmailResponse.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,12 +18,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{1D22ABDC-659A-4171-A2F9-8DB93D0F04D2} = {C657FE98-D53D-47C1-8DCB-3F618CC9AD22}
-		{0F67F485-9C23-4A47-9799-4A6DE7D37524} = {C657FE98-D53D-47C1-8DCB-3F618CC9AD22}
-		{CB4BDF74-8608-4903-B718-082CB9A73881} = {280D3AEA-BB4C-48FB-86AF-9043504090E2}
-		{521716FC-2C96-4B4C-86A2-FA7028125976} = {280D3AEA-BB4C-48FB-86AF-9043504090E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2FE0D4A-D347-43F7-B495-FFC5E83DFB7F}
