@@ -74,6 +74,48 @@ namespace ApiTests
             var changedPhoneNumber = ClientReguests.SendReguestChangeClientPhoneNumberPost("QWE147asd-", expectedPhoneNumber, crearedUser.TokenData.Token);
 
             Assert.AreEqual(expectedPhoneNumber, changedPhoneNumber);
+        } 
+
+        [Test]
+        public void CheckSuccessfulChangeFirstName()
+        {
+            var expectedFirstName = $"{DateTime.Now:ddyyyymmHH}";
+
+            var user = new Dictionary<string, string>
+            {
+                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
+                { "first_name", "Vitalik" },
+                { "last_name", "Petrenko" },
+                { "password", "QWE147asd-" },
+                { "phone_number", "3456744567" }
+            };
+
+            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
+
+            var changedFirstName = ClientReguests.SendReguestChangeClientFirstNamePost(expectedFirstName, crearedUser.User.LastName, crearedUser.TokenData.Token);
+
+            Assert.AreEqual(expectedFirstName, changedFirstName);
+        }
+
+        [Test]
+        public void CheckSuccessfulChangeLastName()
+        {
+            var expectedLastName = $"{DateTime.Now:ddyyyymmHH}";
+
+            var user = new Dictionary<string, string>
+            {
+                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
+                { "first_name", "Vitalik" },
+                { "last_name", "Petrenko" },
+                { "password", "QWE147asd-" },
+                { "phone_number", "3456744567" }
+            };
+
+            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
+
+            var changedLastName = ClientReguests.SendReguestChangeClientLastNamePost(expectedLastName, crearedUser.TokenData.Token);
+
+            Assert.AreEqual(expectedLastName, changedLastName);
         }
     }
 }

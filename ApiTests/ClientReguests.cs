@@ -48,7 +48,7 @@ namespace ApiTests
             return ChangePasswordResponse.Token;
         }
 
-         public static string SendReguestChangeClientPhoneNumberPost(string password, string phoneNumber, string token)
+        public static string SendReguestChangeClientPhoneNumberPost(string password, string phoneNumber, string token)
         {
             var client = new RestClient("https://api.newbookmodels.com/api/v1/client/change_phone/");
             var request = new RestRequest(Method.POST);
@@ -69,5 +69,46 @@ namespace ApiTests
             return ChangePhoneNumberResponse.PhoneNumber;
         }
 
+
+        public static string SendReguestChangeClientFirstNamePost(string firstName, string lastName, string token)
+        {
+            var client = new RestClient("https://api.newbookmodels.com/api/v1/client/self/");
+            var request = new RestRequest(Method.PATCH);
+            var newFirstNameModel = new Dictionary<string, string>
+            {
+                { "first_name", firstName },
+                 { "last_name", lastName},
+            };
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("authorization", token);
+            request.AddJsonBody(newFirstNameModel);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = client.Execute(request);
+            var ChangeSelfResponse = JsonConvert.DeserializeObject<ChangeSelfResponse>(response.Content);
+
+            return ChangeSelfResponse.FirstName;
+        }
+
+        public static string SendReguestChangeClientLastNamePost(string lastName, string token)
+        {
+            var client = new RestClient("https://api.newbookmodels.com/api/v1/client/self/");
+            var request = new RestRequest(Method.PATCH);
+            var newSelfModel = new Dictionary<string, string>
+            {
+                { "last_name", lastName},
+            };
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("authorization", token);
+            request.AddJsonBody(newSelfModel);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = client.Execute(request);
+            var ChangeSelfResponse = JsonConvert.DeserializeObject<ChangeSelfResponse>(response.Content);
+
+            return ChangeSelfResponse.LastName;
+        }
     }
 }
