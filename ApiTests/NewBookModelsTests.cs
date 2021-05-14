@@ -92,7 +92,7 @@ namespace ApiTests
 
             var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
 
-            var changedFirstName = ClientReguests.SendReguestChangeClientFirstNamePost(expectedFirstName, crearedUser.User.LastName, crearedUser.TokenData.Token);
+            var changedFirstName = ClientReguests.SendReguestChangeClientFirstNamePatch(expectedFirstName, crearedUser.User.LastName, crearedUser.TokenData.Token);
 
             Assert.AreEqual(expectedFirstName, changedFirstName);
         }
@@ -113,9 +113,73 @@ namespace ApiTests
 
             var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
 
-            var changedLastName = ClientReguests.SendReguestChangeClientLastNamePost(expectedLastName, crearedUser.TokenData.Token);
+            var changedLastName = ClientReguests.SendReguestChangeClientLastNamePatch(expectedLastName, crearedUser.TokenData.Token);
 
             Assert.AreEqual(expectedLastName, changedLastName);
         }
+
+         [Test]
+        public void CheckSuccessfulChangeClientProfileLocation()
+        {
+            var expectedLocation = "45415 Dulles Crossing Plaza, Sterling, VA 20166, —ÿ¿";
+
+            var user = new Dictionary<string, string>
+            {
+                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
+                { "first_name", "Vitalik" },
+                { "last_name", "Petrenko" },
+                { "password", "QWE147asd-" },
+                { "phone_number", "3456744567" }
+            };
+
+            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
+
+            var changedLocation = ClientReguests.SendReguestChangeClientCompanyLocationPatch(expectedLocation, crearedUser.TokenData.Token);
+
+            Assert.AreEqual(expectedLocation, changedLocation);
+        }
+
+         [Test]
+        public void CheckSuccessfulChangeClientProfileIndustry()
+        {
+            var expectedIndustry = $"{DateTime.Now:ddyyyymmHH}";
+
+            var user = new Dictionary<string, string>
+            {
+                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
+                { "first_name", "Vitalik" },
+                { "last_name", "Petrenko" },
+                { "password", "QWE147asd-" },
+                { "phone_number", "3456744567" }
+            };
+
+            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
+
+            var changedIndustry = ClientReguests.SendReguestChangeClientIndustryPatch(expectedIndustry, crearedUser.TokenData.Token);
+
+            Assert.AreEqual(expectedIndustry, changedIndustry);
+        }
+
+        [Test]
+        public void CheckSuccessfulUploadClientImages()
+        {
+           //var expectedIndustry = $"{DateTime.Now:ddyyyymmHH}";
+
+            var user = new Dictionary<string, string>
+            {
+                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
+                { "first_name", "Vitalik" },
+                { "last_name", "Petrenko" },
+                { "password", "QWE147asd-" },
+                { "phone_number", "3456744567" }
+            };
+
+            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
+
+            var changedIndustry = ClientReguests.SendReguestUploadClientImagesPost(crearedUser.TokenData.Token);
+
+           // Assert.AreEqual(expectedIndustry, changedIndustry);
+        }
+
     }
 }

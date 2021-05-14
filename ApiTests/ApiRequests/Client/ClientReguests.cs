@@ -70,7 +70,7 @@ namespace ApiTests
         }
 
 
-        public static string SendReguestChangeClientFirstNamePost(string firstName, string lastName, string token)
+        public static string SendReguestChangeClientFirstNamePatch(string firstName, string lastName, string token)
         {
             var client = new RestClient("https://api.newbookmodels.com/api/v1/client/self/");
             var request = new RestRequest(Method.PATCH);
@@ -91,7 +91,7 @@ namespace ApiTests
             return ChangeSelfResponse.FirstName;
         }
 
-        public static string SendReguestChangeClientLastNamePost(string lastName, string token)
+        public static string SendReguestChangeClientLastNamePatch(string lastName, string token)
         {
             var client = new RestClient("https://api.newbookmodels.com/api/v1/client/self/");
             var request = new RestRequest(Method.PATCH);
@@ -110,5 +110,73 @@ namespace ApiTests
 
             return ChangeSelfResponse.LastName;
         }
+
+        public static string SendReguestChangeClientCompanyLocationPatch(string locationName, string token)
+        {
+            var client = new RestClient("https://api.newbookmodels.com/api/v1/client/profile/");
+            var request = new RestRequest(Method.PATCH);
+            var newLocationModel = new Dictionary<string, string>
+            {
+                {"location_name", locationName }
+            };
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("authorization", token);
+            request.AddJsonBody(newLocationModel);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = client.Execute(request);
+            var ChangeProfileResponse = JsonConvert.DeserializeObject<ChangeProfileResponse>(response.Content);
+
+            return ChangeProfileResponse.LocationName;
+        }
+
+        public static string SendReguestChangeClientIndustryPatch(string industry, string token)
+        {
+            var client = new RestClient("https://api.newbookmodels.com/api/v1/client/profile/");
+            var request = new RestRequest(Method.PATCH);
+            var newLocationModel = new Dictionary<string, string>
+            {
+                {"industry", industry }
+            };
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("authorization", token);
+            request.AddJsonBody(newLocationModel);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = client.Execute(request);
+            var ChangeProfileResponse = JsonConvert.DeserializeObject<ChangeProfileResponse>(response.Content);
+
+            return ChangeProfileResponse.Industry;
+        }
+
+        public static string SendReguestUploadClientImagesPost(string token)
+        {
+            var client = new RestClient("https://api.newbookmodels.com/api/images/upload/");
+            var request = new RestRequest(Method.POST);
+            //var newLocationModel = new Dictionary<string, string>
+            //{
+            //    { "content-disposition", "form - data" },
+            //    { "name", "file" },
+            //    {"filename", "ae86.jpg" },
+            //    { "content - type", "image / jpeg" },
+            //};
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("authorization", token);    
+            request.AddHeader("content-disposition", "form-data; name='file'; filename='ae86.jpg'");    
+            //request.AddHeader("content-type", "image / jpeg");    
+            request.AddFile("ae86.jpg", "C:/Users/koguno/Desktop/ae86.jpg");
+            //request.AddJsonBody(newLocationModel);
+            //request.DateFormat();
+            request.RequestFormat = DataFormat.Json;
+
+            var response = client.Execute(request);
+            var ChangeProfileResponse = JsonConvert.DeserializeObject<ChangeProfileResponse>(response.Content);
+
+            return ChangeProfileResponse.Industry;
+        }
+
     }
 }
