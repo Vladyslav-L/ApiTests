@@ -14,10 +14,11 @@ namespace ApiTests
 {
     public class NewBookModelsTests
     {
-        [Test]
-        public void CheckSuccessfulChangeEmail()
+        private static ClientAuthModel _user;
+
+        [SetUp]
+        public void SetUp()
         {
-            var expectedEmail = $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com";
             var user = new Dictionary<string, string>
             {
                 { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
@@ -27,32 +28,27 @@ namespace ApiTests
                 { "phone_number", "3456744567" }
             };
 
-            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);
+            _user = AuthReguests.SendRequestClientSingUpPost(user);
+        }
 
-            var changedEmail = ClientReguests.SendReguestChangeClientEmailPost("QWE147asd-", expectedEmail, crearedUser.TokenData.Token);
+        [Test]
+        public void CheckSuccessfulChangeEmail()
+        {
+            var expectedEmail = $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com";
+
+            var changedEmail = ClientReguests.SendReguestChangeClientEmailPost("QWE147asd-", expectedEmail, _user.TokenData.Token);
 
             Assert.AreEqual(expectedEmail, changedEmail);
-        }   
+        }
 
         [Test]
         public void CheckSuccessfulChangePassword()
         {
             var expectedPassword = $"{DateTime.Now:ddyyyymmHHssmmffff}QWEasd-";
 
-            var user = new Dictionary<string, string>
-            {
-                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
-                { "first_name", "Vitalik" },
-                { "last_name", "Petrenko" },
-                { "password", "QWE147asd-" },
-                { "phone_number", "3456744567" }
-            };
+            var changedPassword = ClientReguests.SendReguestChangeClientPasswordPost("QWE147asd-", expectedPassword, _user.TokenData.Token);
 
-            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
-
-            var changedPassword = ClientReguests.SendReguestChangeClientPasswordPost("QWE147asd-", expectedPassword, crearedUser.TokenData.Token);
-
-            Assert.AreEqual(crearedUser.TokenData.Token, changedPassword);
+            Assert.AreEqual(_user.TokenData.Token, changedPassword);
         }
 
         [Test]
@@ -60,39 +56,17 @@ namespace ApiTests
         {
             var expectedPhoneNumber = $"{DateTime.Now:ddyyyymmHH}";
 
-            var user = new Dictionary<string, string>
-            {
-                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
-                { "first_name", "Vitalik" },
-                { "last_name", "Petrenko" },
-                { "password", "QWE147asd-" },
-                { "phone_number", "3456744567" }
-            };
-
-            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
-
-            var changedPhoneNumber = ClientReguests.SendReguestChangeClientPhoneNumberPost("QWE147asd-", expectedPhoneNumber, crearedUser.TokenData.Token);
+            var changedPhoneNumber = ClientReguests.SendReguestChangeClientPhoneNumberPost("QWE147asd-", expectedPhoneNumber, _user.TokenData.Token);
 
             Assert.AreEqual(expectedPhoneNumber, changedPhoneNumber);
-        } 
+        }
 
         [Test]
         public void CheckSuccessfulChangeFirstName()
         {
             var expectedFirstName = $"{DateTime.Now:ddyyyymmHH}";
 
-            var user = new Dictionary<string, string>
-            {
-                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
-                { "first_name", "Vitalik" },
-                { "last_name", "Petrenko" },
-                { "password", "QWE147asd-" },
-                { "phone_number", "3456744567" }
-            };
-
-            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
-
-            var changedFirstName = ClientReguests.SendReguestChangeClientFirstNamePatch(expectedFirstName, crearedUser.User.LastName, crearedUser.TokenData.Token);
+            var changedFirstName = ClientReguests.SendReguestChangeClientFirstNamePatch(expectedFirstName, _user.User.LastName, _user.TokenData.Token);
 
             Assert.AreEqual(expectedFirstName, changedFirstName);
         }
@@ -102,80 +76,37 @@ namespace ApiTests
         {
             var expectedLastName = $"{DateTime.Now:ddyyyymmHH}";
 
-            var user = new Dictionary<string, string>
-            {
-                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
-                { "first_name", "Vitalik" },
-                { "last_name", "Petrenko" },
-                { "password", "QWE147asd-" },
-                { "phone_number", "3456744567" }
-            };
-
-            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
-
-            var changedLastName = ClientReguests.SendReguestChangeClientLastNamePatch(expectedLastName, crearedUser.TokenData.Token);
+            var changedLastName = ClientReguests.SendReguestChangeClientLastNamePatch(expectedLastName, _user.TokenData.Token);
 
             Assert.AreEqual(expectedLastName, changedLastName);
         }
 
-         [Test]
+        [Test]
         public void CheckSuccessfulChangeClientProfileLocation()
         {
             var expectedLocation = "45415 Dulles Crossing Plaza, Sterling, VA 20166, —ÿ¿";
 
-            var user = new Dictionary<string, string>
-            {
-                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
-                { "first_name", "Vitalik" },
-                { "last_name", "Petrenko" },
-                { "password", "QWE147asd-" },
-                { "phone_number", "3456744567" }
-            };
-
-            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
-
-            var changedLocation = ClientReguests.SendReguestChangeClientCompanyLocationPatch(expectedLocation, crearedUser.TokenData.Token);
+            var changedLocation = ClientReguests.SendReguestChangeClientCompanyLocationPatch(expectedLocation, _user.TokenData.Token);
 
             Assert.AreEqual(expectedLocation, changedLocation);
         }
 
-         [Test]
+        [Test]
         public void CheckSuccessfulChangeClientProfileIndustry()
         {
             var expectedIndustry = $"{DateTime.Now:ddyyyymmHH}";
 
-            var user = new Dictionary<string, string>
-            {
-                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
-                { "first_name", "Vitalik" },
-                { "last_name", "Petrenko" },
-                { "password", "QWE147asd-" },
-                { "phone_number", "3456744567" }
-            };
-
-            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
-
-            var changedIndustry = ClientReguests.SendReguestChangeClientIndustryPatch(expectedIndustry, crearedUser.TokenData.Token);
+            var changedIndustry = ClientReguests.SendReguestChangeClientIndustryPatch(expectedIndustry, _user.TokenData.Token);
 
             Assert.AreEqual(expectedIndustry, changedIndustry);
         }
 
         [Test]
         public void CheckSuccessfulUploadClientImages()
-        {
-            var expectedImage = "334b960e-4d92-4bc5-a059-4540ca2fa8af";
-            var user = new Dictionary<string, string>
-            {
-                { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
-                { "first_name", "Vitalik" },
-                { "last_name", "Petrenko" },
-                { "password", "QWE147asd-" },
-                { "phone_number", "3456744567" }
-            };
+        {                
+            var expectedImage = ClientReguests.SendReguestUploadClientImagesPost(_user.TokenData.Token);   
 
-            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user); 
-            
-            var changedImage = ClientReguests.SendReguestUploadClientImagesPatch(crearedUser.TokenData.Token, expectedImage);
+            var changedImage = ClientReguests.SendReguestUploadClientImagesPatch(_user.TokenData.Token, expectedImage);
 
             Assert.AreEqual(expectedImage, changedImage);
         }

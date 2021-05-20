@@ -22,7 +22,7 @@ namespace ApiTests
             request.RequestFormat = DataFormat.Json;
 
             var response = client.Execute(request);
-            var ChangeEmailResponse = JsonConvert.DeserializeObject<ChangeEmailResponse>(response.Content);
+            var ChangeEmailResponse = JsonConvert.DeserializeObject<Response>(response.Content);
 
             return ChangeEmailResponse.Email;
         }
@@ -150,7 +150,23 @@ namespace ApiTests
 
             return ChangeProfileResponse.Industry;
         }
-        
+
+        public static string SendReguestUploadClientImagesPost(string token)
+        {
+            var client = new RestClient("https://api.newbookmodels.com/api/images/upload/");
+            var request = new RestRequest(Method.POST);          
+            
+            request.AddHeader("authorization", token);
+            request.AddHeader("content-disposition", "form-data; name='file'; filename='ae86.jpg'");               
+            request.AddFile("file", "C:/Users/koguno/Desktop/ae86.jpg");          
+            request.RequestFormat = DataFormat.Json;
+
+            var response = client.Execute(request);
+            var image = JsonConvert.DeserializeObject<Root>(response.Content);
+
+            return image.Image.Id;
+        }
+
         public static string SendReguestUploadClientImagesPatch(string token, string avatarId)
         {
             var client = new RestClient("https://api.newbookmodels.com/api/v1/client/self/");
@@ -162,9 +178,9 @@ namespace ApiTests
             request.AddParameter("avatar_id", avatarId);         
 
             var response = client.Execute(request);
-            var AvatarResponse = JsonConvert.DeserializeObject<AvatarResponse>(response.Content.);
+            var AvatarResponse = JsonConvert.DeserializeObject<AvatarResponse>(response.Content);
 
-            return AvatarResponse.Id;
+            return AvatarResponse.Avatar.Id;
         }
     }
 }

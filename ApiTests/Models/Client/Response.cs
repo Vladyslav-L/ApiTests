@@ -3,7 +3,7 @@ using System.Net;
 
 namespace ApiTests
 {
-    public class ChangeEmailResponse
+    public class Response
     {
         public string Email { get; set; }
     }
@@ -23,13 +23,7 @@ namespace ApiTests
     public class StatusCodeResponse
     {
         HttpStatusCode StatusCode { get; set; }
-    }
-
-    public class AvatarResponse
-    {
-        [JsonProperty("id")]
-        public string Id { get; set; }      
-    }
+    }  
 
     public class ChangeSelfResponse
     {
