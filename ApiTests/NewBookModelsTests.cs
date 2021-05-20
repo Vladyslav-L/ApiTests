@@ -18,7 +18,7 @@ namespace ApiTests
 
         [SetUp]
         public void SetUp()
-        {
+        {  
             var user = new Dictionary<string, string>
             {
                 { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
@@ -29,7 +29,7 @@ namespace ApiTests
             };
 
             _user = AuthReguests.SendRequestClientSingUpPost(user);
-        }
+        }                
 
         [Test]
         public void CheckSuccessfulChangeEmail()
@@ -103,13 +103,12 @@ namespace ApiTests
 
         [Test]
         public void CheckSuccessfulUploadClientImages()
-        {                
-            var expectedImage = ClientReguests.SendReguestUploadClientImagesPost(_user.TokenData.Token);   
+        {
+            var expectedImage = ClientReguests.SendReguestUploadClientImagesPost(_user.TokenData.Token);
 
             var changedImage = ClientReguests.SendReguestUploadClientImagesPatch(_user.TokenData.Token, expectedImage);
 
             Assert.AreEqual(expectedImage, changedImage);
         }
-
     }
 }

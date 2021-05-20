@@ -19,6 +19,6 @@ namespace ApiTests
             var createdUser = JsonConvert.DeserializeObject<ClientAuthModel>(response.Content);
 
             return createdUser;
-        } 
-    }
+        }       
+    }   
 }

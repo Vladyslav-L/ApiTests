@@ -17,6 +17,6 @@ namespace ApiTests
         public string Password { get; set; }
 
         [JsonProperty("phone_number")]
-        public string PhoneNumber { get; set; }       
+        public string PhoneNumber { get; set; }                  
     }
 }
