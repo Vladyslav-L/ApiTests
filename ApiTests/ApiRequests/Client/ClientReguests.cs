@@ -150,33 +150,21 @@ namespace ApiTests
 
             return ChangeProfileResponse.Industry;
         }
-
-        public static string SendReguestUploadClientImagesPost(string token)
+        
+        public static string SendReguestUploadClientImagesPatch(string token, string avatarId)
         {
-            var client = new RestClient("https://api.newbookmodels.com/api/images/upload/");
-            var request = new RestRequest(Method.POST);
-            //var newLocationModel = new Dictionary<string, string>
-            //{
-            //    { "content-disposition", "form - data" },
-            //    { "name", "file" },
-            //    {"filename", "ae86.jpg" },
-            //    { "content - type", "image / jpeg" },
-            //};
+            var client = new RestClient("https://api.newbookmodels.com/api/v1/client/self/");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.PATCH);
 
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("authorization", token);    
-            request.AddHeader("content-disposition", "form-data; name='file'; filename='ae86.jpg'");    
-            //request.AddHeader("content-type", "image / jpeg");    
-            request.AddFile("ae86.jpg", "C:/Users/koguno/Desktop/ae86.jpg");
-            //request.AddJsonBody(newLocationModel);
-            //request.DateFormat();
-            request.RequestFormat = DataFormat.Json;
+            request.AddHeader("authorization", token);
+            request.AlwaysMultipartFormData = true;
+            request.AddParameter("avatar_id", avatarId);         
 
             var response = client.Execute(request);
-            var ChangeProfileResponse = JsonConvert.DeserializeObject<ChangeProfileResponse>(response.Content);
+            var AvatarResponse = JsonConvert.DeserializeObject<AvatarResponse>(response.Content.);
 
-            return ChangeProfileResponse.Industry;
+            return AvatarResponse.Id;
         }
-
     }
 }

@@ -25,6 +25,11 @@ namespace ApiTests
         HttpStatusCode StatusCode { get; set; }
     }
 
+    public class AvatarResponse
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }      
+    }
 
     public class ChangeSelfResponse
     {
@@ -63,8 +68,8 @@ namespace ApiTests
 
         [JsonProperty("last_name")]
         public string LastName { get; set; }
-
     }
+
     public class ChangeProfileResponse
     {
         [JsonProperty("id")]

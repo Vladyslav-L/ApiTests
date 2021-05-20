@@ -163,8 +163,7 @@ namespace ApiTests
         [Test]
         public void CheckSuccessfulUploadClientImages()
         {
-           //var expectedIndustry = $"{DateTime.Now:ddyyyymmHH}";
-
+            var expectedImage = "334b960e-4d92-4bc5-a059-4540ca2fa8af";
             var user = new Dictionary<string, string>
             {
                 { "email", $"testemail{DateTime.Now:ddyyyymmHHssmmffff}@gmail.com" },
@@ -174,11 +173,11 @@ namespace ApiTests
                 { "phone_number", "3456744567" }
             };
 
-            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user);            
+            var crearedUser = AuthReguests.SendRequestClientSingUpPost(user); 
+            
+            var changedImage = ClientReguests.SendReguestUploadClientImagesPatch(crearedUser.TokenData.Token, expectedImage);
 
-            var changedIndustry = ClientReguests.SendReguestUploadClientImagesPost(crearedUser.TokenData.Token);
-
-           // Assert.AreEqual(expectedIndustry, changedIndustry);
+            Assert.AreEqual(expectedImage, changedImage);
         }
 
     }
